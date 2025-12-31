@@ -70,3 +70,4 @@ def get_athletes(db: Session, limit: int, offset: int, sort: str):
         text(query),
         {"limit": limit, "offset": offset}
     ).fetchall()
+
