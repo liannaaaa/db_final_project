@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, Numeric
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import JSONB
 from .database import Base
 
 
@@ -12,8 +13,6 @@ class SportType(Base):
     world_record = Column(Numeric)
     olympic_record = Column(Numeric)
 
-    results = relationship("Result", back_populates="sport_type")
-
 
 class Athlete(Base):
     __tablename__ = "athletes"
@@ -22,9 +21,8 @@ class Athlete(Base):
     full_name = Column(String, nullable=False)
     country = Column(String)
     birth_year = Column(Integer)
-    wins_count = Column(Integer)
-
-    results = relationship("Result", back_populates="athlete")
+    wins_count = Column(Integer, default=0)
+    profile = Column(JSONB)
 
 
 class Result(Base):
@@ -40,5 +38,5 @@ class Result(Base):
     sport_type_id = Column(Integer, ForeignKey("sport_types.id"))
     athlete_id = Column(Integer, ForeignKey("athletes.id"))
 
-    sport_type = relationship("SportType", back_populates="results")
-    athlete = relationship("Athlete", back_populates="results")
+    athlete = relationship("Athlete")
+    sport_type = relationship("SportType")

@@ -1,19 +1,21 @@
 from pydantic import BaseModel
+from typing import Optional, Dict
 from datetime import date
-
-
-class SportTypeCreate(BaseModel):
-    name: str
-    unit: str | None = None
-    world_record: float | None = None
-    olympic_record: float | None = None
 
 
 class AthleteCreate(BaseModel):
     full_name: str
-    country: str | None = None
-    birth_year: int | None = None
-    wins_count: int | None = None
+    country: Optional[str]
+    birth_year: Optional[int]
+    wins_count: Optional[int]
+    profile: Optional[Dict]
+
+
+class SportTypeCreate(BaseModel):
+    name: str
+    unit: Optional[str]
+    world_record: Optional[float]
+    olympic_record: Optional[float]
 
 
 class ResultCreate(BaseModel):

@@ -19,6 +19,6 @@ def create_result(data: schemas.ResultCreate, db: Session = Depends(get_db)):
     return crud.create_result(db, data)
 
 
-@router.get("/by-country")
-def results_by_country(country: str, db: Session = Depends(get_db)):
-    return crud.get_results_by_country(db, country)
+@router.get("/join")
+def join_results(db: Session = Depends(get_db)):
+    return crud.join_results(db)
